@@ -8,7 +8,7 @@
   .heroes li {
     display: flex;
   }
-  
+
   .heroes button {
     flex: 1;
     cursor: pointer;
@@ -17,7 +17,7 @@
     background-color: #EEE;
     margin: .5em;
     padding: 0;
-    height: 1.6em;
+    height: 1.6em !important;
     border-radius: 4px;
     display: flex;
     align-items: stretch;

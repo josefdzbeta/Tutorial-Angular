@@ -4,8 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 
 //Array de héroes
-import { HEROES } from '../mock-heroes'
+// import { HEROES } from '../mock-heroes'
 
+//Servicios
+import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -20,16 +23,25 @@ export class HeroesComponent implements OnInit {
   }
 
   //Obtener lista de héroes let hero (objeto) of heroes (lista de héroes)
-  heroes = HEROES;
+  // heroes = HEROES;
+  heroes: Hero[] = [];
   selectedHero?: Hero;
 
 
- 
-  constructor() {}
+  //el parámetro simultáneamente define heroService como propiedad privada y la identifica como inyección de HeroService
+  constructor(private heroService: HeroService, private messageService: MessageService) { }
   
-  ngOnInit():void {}
+  ngOnInit():void {
+    this.getHeroes();
+  }
   
   onSelect (hero: Hero): void{
     this.selectedHero = hero;
+    this.messageService.add(`HeroesComponent: Héroe Seleccionado id=${hero.id}`);
+  }
+
+  getHeroes(): void {
+    this.heroService.getHeroes()
+        .subscribe(heroes => this.heroes = heroes);
   }
 }
